@@ -1,0 +1,11 @@
+/* Footer */
+.app-footer {
+  border-top: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.footer-inner {
+  padding: 1rem 0;
+  text-align: center;
+  color: var(--muted);
+}

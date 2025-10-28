@@ -1,0 +1,77 @@
+/* Calendar */
+.calendar {
+  display: grid;
+  gap: 1rem;
+}
+
+.calendar-day {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+}
+
+.day-heading {
+  margin: 0;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border);
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.event-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.event-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5rem 1rem;
+  padding: 0.75rem 1rem;
+  border-top: 1px solid var(--border);
+  align-items: center;
+}
+
+.event-item:first-child {
+  border-top: none;
+}
+
+.event-meta {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.teams {
+  font-weight: 600;
+}
+
+.vs {
+  margin: 0 0.5rem;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.status {
+  font-size: 0.75rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+}
+
+.status-scheduled {
+  color: var(--warn);
+}
+
+.status-played {
+  color: var(--ok);
+}
+
+.empty {
+  padding: 2rem;
+  text-align: center;
+  color: var(--muted);
+}
