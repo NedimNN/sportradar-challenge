@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import 'remixicon/fonts/remixicon.css'
 import { BrowserRouter as Router } from 'react-router-dom';
 import { EventsProvider } from './context/EventsContext';
 

@@ -1,4 +1,5 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useEvents } from '../../context/EventsContext';
 import './calendar.css';
 
@@ -27,20 +28,20 @@ const buildMonthGrid = (year, month /* 0-based */) => {
 
 const Calendar = () => {
   const { events } = useEvents();
+  const navigate = useNavigate();
 
-  // Current month reference
+  // Current month reference (stateful to allow navigation)
   const today = new Date();
-  const year = today.getFullYear();
-  const month = today.getMonth(); // 0-January
+  const [view, setView] = useState({ year: today.getFullYear(), month: today.getMonth() }); // month is 0-based
+  const { year, month } = view;
 
   // Map scheduled events by date (YYYY-MM-DD)
   const eventsByDate = useMemo(() => {
     const map = new Map();
     (events || []).forEach((e) => {
       if (!e?.dateVenue) return;
-      // Only mark scheduled events as requested
-      if ((e.status || '').toLowerCase() !== 'scheduled') return;
-      const key = e.dateVenue; // already in YYYY-MM-DD
+      // Show any event with a valid date disregard status
+      const key = e.dateVenue; // expected YYYY-MM-DD
       if (!map.has(key)) map.set(key, []);
       map.get(key).push(e);
     });
@@ -62,10 +63,30 @@ const Calendar = () => {
     );
   }, []);
 
+  const handleSwitchMonth = (direction) => {
+    setView((prev) => {
+      const m = prev.month + direction;
+      if (m < 0) return { year: prev.year - 1, month: 11 };
+      if (m > 11) return { year: prev.year + 1, month: 0 };
+      return { year: prev.year, month: m };
+    });
+  };
+  const displayDetails = (eventId) => {
+    // Navigate to the dedicated Event Details page
+    navigate(`/event/${eventId}`);
+  }
+
+
   return (
     <div className="month">
       <div className="month-header">
+        <button className="btn" onClick={() => handleSwitchMonth(-1)} style={{ border: 0 }} aria-label="Previous month">
+          <i className="ri-arrow-left-double-line" style={{ color: 'black' }}></i>
+        </button>
         <h2 className="month-title">{monthLabel}</h2>
+        <button className="btn" onClick={() => handleSwitchMonth(1)} style={{ border: 0 }} aria-label="Next month">
+          <i className="ri-arrow-right-double-line" style={{ color: 'black' }}></i>
+        </button>
       </div>
 
       <div className="month-grid">
@@ -92,7 +113,7 @@ const Calendar = () => {
                 <ul className="day-events" aria-label="Scheduled events">
                   {dayEvents.slice(0, 3).map((e) => (
                     <li key={e.id} className="event-chip" title={`${e.homeTeam?.name ?? 'TBD'} vs ${e.awayTeam?.name ?? 'TBD'}`}>
-                      {e.homeTeam?.name ?? 'TBD'} vs {e.awayTeam?.name ?? 'TBD'}
+                      <button className="btn-event" onClick={() => displayDetails(e.id)} style={{ border: 0 }}>{e.homeTeam?.name ?? 'TBD'} vs {e.awayTeam?.name ?? 'TBD'}</button>
                     </li>
                   ))}
                   {dayEvents.length > 3 && (

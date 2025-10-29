@@ -26,7 +26,7 @@
 }
 
 .nav-link {
-  color: var(--muted);
+  color: var(--navmuted);
   text-decoration: none;
 }
 

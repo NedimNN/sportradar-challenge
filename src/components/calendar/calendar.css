@@ -5,15 +5,32 @@
 }
 
 .month-header {
-  display: flex;
+  width: 25%;
+  display: grid;
+  grid-template-columns: auto 1fr auto; /* left arrow | month name | right arrow */
   align-items: center;
-  justify-content: space-between;
+  gap: 0.5rem;
 }
 
 .month-title {
   margin: 0;
   font-size: 1.25rem;
   color: var(--texttitle);
+  text-align: center;
+  min-width: 0;
+}
+
+.month-header .btn {
+  width: 2.25rem;
+  height: 2.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.month-header .btn i {
+  font-size: 1.25rem;
 }
 
 .month-grid {
@@ -67,6 +84,14 @@
   padding: 0;
   display: grid;
   gap: 0.25rem;
+}
+.btn-event {
+  background: none;
+  color: var(--text);
+  padding: 0;
+  font-size: 0.75rem;
+  text-align: left;
+  cursor: pointer;
 }
 
 .event-chip {
