@@ -5,6 +5,7 @@ import raw from '../data/data.json';
 const EventsContext = createContext({
   events: [],
   getEventById: () => undefined,
+  addSportEvent: () => undefined,
 });
 
 const generateId = () => `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
@@ -18,12 +19,32 @@ export const EventsProvider = ({ children }) => {
       id: e.id ?? `${idx}-${generateId()}`,
       ...e,
     }));
-    setEvents(initial);
+    // Load any user-added events from localStorage and merge
+    let userAdded = [];
+    try {
+      const stored = localStorage.getItem('userEvents');
+      userAdded = stored ? JSON.parse(stored) : [];
+    } catch {}
+    setEvents([...initial, ...userAdded]);
   }, []);
 
   const getEventById = (id) => events.find((e) => String(e.id) === String(id));
 
-  const value = useMemo(() => ({ events, getEventById }), [events]);
+  const addSportEvent = (event) => {
+    const newEvent = { id: generateId(), ...event };
+    setEvents((prev) => {
+      const next = [...prev, newEvent];
+      try {
+        const stored = localStorage.getItem('userEvents');
+        const user = stored ? JSON.parse(stored) : [];
+        localStorage.setItem('userEvents', JSON.stringify([...user, newEvent]));
+      } catch {}
+      return next;
+    });
+    return newEvent;
+  };
+
+  const value = useMemo(() => ({ events, getEventById, addSportEvent }), [events]);
 
   return <EventsContext.Provider value={value}>{children}</EventsContext.Provider>;
 };
