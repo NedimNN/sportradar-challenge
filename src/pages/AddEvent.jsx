@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useEvents } from '../context/EventsContext'
-import raw from '../data/data.json'
+
 
 /*
 Required event fields (from sample):
@@ -149,12 +149,12 @@ const AddEvent = () => {
             <div className="form-row">
                 <div className="form-group">
                   <label>Season</label>
-                  <input type="number" className="input" value={form.season} onChange={onChange('season')} placeholder="e.g., 2026" />
+                  <input type="number" className="input" value={form.season} onChange={onChange('season')} placeholder="2026" />
                 </div>
 
                 <div className="form-group">
                   <label>Sport</label>
-                  <input type="text" className="input" value={form.sport} onChange={onChange('sport')} placeholder="e.g., football" required />
+                  <input type="text" className="input" value={form.sport} onChange={onChange('sport')} placeholder="Football" required />
                 </div>
             </div>  
 
@@ -170,19 +170,19 @@ const AddEvent = () => {
               </div>
               <div className="form-group">
                 <label>Stadium</label>
-                <input type="text" className="input" value={form.stadium} onChange={onChange('stadium')} placeholder="Optional" />
+                <input type="text" className="input" value={form.stadium} onChange={onChange('stadium')} placeholder="Camp Nou"  />
               </div>
             </div>
             
 
-            <div className="form-row">
-              <div className="form-group">
+            <div className="form-row" id="date-time-venue">
+              <div className="form-group-date">
                 <label>Date (venue)</label>
-                <input type="date" className="input" value={form.dateVenue} onChange={onChange('dateVenue')} required />
+                <input type="date" className="input-date" value={form.dateVenue} onChange={onChange('dateVenue')} required />
               </div>
-              <div className="form-group">
+              <div className="form-group-time"> 
                 <label>Time (UTC)</label>
-                <input type="time" className="input" value={form.timeVenueUTC} onChange={onChange('timeVenueUTC')} required />
+                <input type="time" className="input-time" value={form.timeVenueUTC} onChange={onChange('timeVenueUTC')} required />
               </div>
             </div>
           </section>
@@ -198,7 +198,7 @@ const AddEvent = () => {
               </div>
               <div className="form-group">
                 <label>Country Code</label>
-                <input type="text" className="input" value={form.homeTeam.teamCountryCode} onChange={onNestedChange('homeTeam', 'teamCountryCode')} />
+                <input type="text" className="input" value={form.homeTeam.teamCountryCode} onChange={onNestedChange('homeTeam', 'teamCountryCode')} placeholder="AUS, GER, ESP"  />
               </div>
             </div>
           </section>
@@ -213,7 +213,7 @@ const AddEvent = () => {
               </div>
               <div className="form-group">
                 <label>Country Code</label>
-                <input type="text" className="input" value={form.awayTeam.teamCountryCode} onChange={onNestedChange('awayTeam', 'teamCountryCode')} />
+                <input type="text" className="input" value={form.awayTeam.teamCountryCode} onChange={onNestedChange('awayTeam', 'teamCountryCode')} placeholder="AUS, GER, ESP" />
               </div>
             </div>
           </section>
@@ -249,7 +249,7 @@ const AddEvent = () => {
               
               <div className="form-group">
                 <label>Stage Name</label>
-                <input type="text" className="input" value={form.stage.name} onChange={onNestedChange('stage', 'name')} />
+                <input type="text" className="input" value={form.stage.name} onChange={onNestedChange('stage', 'name')} placeholder='Final' />
               </div>
               <div className="form-group">
                 <label>Ordering</label>
@@ -265,12 +265,12 @@ const AddEvent = () => {
             <div className="form-row">
 
               <div className="form-group">
-                <label>Origin Competition Name</label>
+                <label>Competition Name</label>
                 <input type="text" className="input" value={form.originCompetitionName} onChange={onChange('originCompetitionName')} />
               </div>
               <div className="form-group">
                 <label>Group</label>
-                <input type="text" className="input" value={form.group} onChange={onChange('group')} placeholder="Optional" />
+                <input type="text" className="input" value={form.group} onChange={onChange('group')} />
               </div>
             </div>
           </section>

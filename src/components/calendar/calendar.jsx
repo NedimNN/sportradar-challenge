@@ -1,7 +1,21 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useEvents } from '../../context/EventsContext';
 import './calendar.css';
+
+// Format a YYYY-MM-DD key to a friendly label like "Thu 30-10-2025" for mobile modal
+const formatDayLabel = (key) => {
+  if (!key || typeof key !== 'string') return key;
+  const [y, m, d] = key.split('-');
+  if (!y || !m || !d) return key;
+  try {
+    const date = new Date(Number(y), Number(m) - 1, Number(d));
+    const weekday = new Intl.DateTimeFormat(undefined, { weekday: 'short' }).format(date);
+    return `${weekday} ${d}-${m}-${y}`;
+  } catch {
+    return `${d}-${m}-${y}`;
+  }
+};
 
 // Helpers for dates
 const pad = (n) => String(n).padStart(2, '0');
@@ -50,6 +64,10 @@ const Calendar = () => {
 
   const { cells } = useMemo(() => buildMonthGrid(year, month), [year, month]);
 
+  // Modal state for day details on mobile screens
+  const [dayModalKey, setDayModalKey] = useState(null);
+  const closeDayModal = () => setDayModalKey(null);
+
   const monthLabel = useMemo(() =>
     new Intl.DateTimeFormat(undefined, { month: 'long', year: 'numeric' }).format(new Date(year, month, 1)),
   [year, month]);
@@ -72,7 +90,6 @@ const Calendar = () => {
     });
   };
   const displayDetails = (eventId) => {
-    // Navigate to the dedicated Event Details page
     navigate(`/event/${eventId}`);
   }
 
@@ -100,10 +117,17 @@ const Calendar = () => {
           const inCurrentMonth = d.getMonth() === month;
           const k = keyOf(d);
           const dayEvents = eventsByDate.get(k) || [];
+          const hasEvents = dayEvents.length > 0;
+          const onDayClick = () => {
+            // Only open modal on small screens and when day has events
+            const isMobile = window.matchMedia && window.matchMedia('(max-width: 640px)').matches;
+            if (isMobile && hasEvents) setDayModalKey(k);
+          };
           return (
             <div
               key={`${k}-${idx}`}
-              className={`day${inCurrentMonth ? '' : ' outside'}`}
+              className={`day${inCurrentMonth ? '' : ' outside'}${hasEvents ? ' has-events' : ''}`}
+              onClick={onDayClick}
             >
               <div className="day-header">
                 <span className="day-number">{d.getDate()}</span>
@@ -125,6 +149,29 @@ const Calendar = () => {
           );
         })}
       </div>
+      {dayModalKey && (
+        <div className="modal-overlay" role="dialog" aria-modal="true" onClick={closeDayModal}>
+          <div className="modal" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <strong>{formatDayLabel(dayModalKey)}</strong>
+              <button className="btn" onClick={closeDayModal} aria-label="Close" style={{ border: 0 }}>✕</button>
+            </div>
+            <div className="modal-body">
+              <ul className="day-events" aria-label="Scheduled events for selected day">
+                {(eventsByDate.get(dayModalKey) || []).map((e) => (
+                  <li key={e.id} className="event-chip" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span>{e.homeTeam?.name ?? 'TBD'} vs {e.awayTeam?.name ?? 'TBD'}</span>
+                    <button className="btn-details" style={{ marginLeft: 8 }} onClick={() => navigate(`/event/${e.id}`)}>Details</button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="modal-footer">
+              <button className="btn-cancel" onClick={closeDayModal}>Close</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
