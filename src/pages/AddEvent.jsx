@@ -148,20 +148,20 @@ const AddEvent = () => {
 
             <div className="form-row">
                 <div className="form-group">
-                  <label>Season</label>
-                  <input type="number" className="input" value={form.season} onChange={onChange('season')} placeholder="2026" />
+                  <label htmlFor="season">Season</label>
+                  <input id="season" type="number" className="input" value={form.season} onChange={onChange('season')} placeholder="2026" />
                 </div>
 
                 <div className="form-group">
-                  <label>Sport</label>
-                  <input type="text" className="input" value={form.sport} onChange={onChange('sport')} placeholder="Football" required />
+                  <label htmlFor="sport">Sport Name</label>
+                  <input id="sport" type="text" className="input" value={form.sport} onChange={onChange('sport')} placeholder="Football" required />
                 </div>
             </div>  
 
             <div className="form-row">
               <div className="form-group">
-              <label>Status</label>
-              <select className="input" value={form.status} onChange={onChange('status')}>
+              <label htmlFor="status">Status</label>
+              <select id="status" className="input" value={form.status} onChange={onChange('status')}>
                 <option value="scheduled">scheduled</option>
                 <option value="played">played</option>
                 <option value="postponed">postponed</option>
@@ -169,20 +169,20 @@ const AddEvent = () => {
               </select>
               </div>
               <div className="form-group">
-                <label>Stadium</label>
-                <input type="text" className="input" value={form.stadium} onChange={onChange('stadium')} placeholder="Camp Nou"  />
+                <label htmlFor="stadium">Stadium</label>
+                <input id="stadium" type="text" className="input" value={form.stadium} onChange={onChange('stadium')} placeholder="Camp Nou"  />
               </div>
             </div>
             
 
             <div className="form-row" id="date-time-venue">
               <div className="form-group-date">
-                <label>Date (venue)</label>
-                <input type="date" className="input-date" value={form.dateVenue} onChange={onChange('dateVenue')} required />
+                <label htmlFor="dateVenue">Date (venue)</label>
+                <input id="dateVenue" type="date" className="input-date" value={form.dateVenue} onChange={onChange('dateVenue')} required />
               </div>
               <div className="form-group-time"> 
-                <label>Time (UTC)</label>
-                <input type="time" className="input-time" value={form.timeVenueUTC} onChange={onChange('timeVenueUTC')} required />
+                <label htmlFor="timeVenueUTC">Time (UTC)</label>
+                <input id="timeVenueUTC" type="time" className="input-time" value={form.timeVenueUTC} onChange={onChange('timeVenueUTC')} required />
               </div>
             </div>
           </section>
@@ -193,12 +193,12 @@ const AddEvent = () => {
             <h3>Home Team</h3>
             <div className="form-row" >
               <div className="form-group">
-                <label>Official Name</label>
-                <input type="text" className="input" value={form.homeTeam.officialName} onChange={onNestedChange('homeTeam', 'officialName')} />
+                <label htmlFor="homeOfficialName">Official Name</label>
+                <input id="homeOfficialName" type="text" className="input" value={form.homeTeam.officialName} onChange={onNestedChange('homeTeam', 'officialName')} />
               </div>
               <div className="form-group">
-                <label>Country Code</label>
-                <input type="text" className="input" value={form.homeTeam.teamCountryCode} onChange={onNestedChange('homeTeam', 'teamCountryCode')} placeholder="AUS, GER, ESP"  />
+                <label htmlFor="homeCountryCode">Country Code</label>
+                <input id="homeCountryCode" type="text" className="input" value={form.homeTeam.teamCountryCode} onChange={onNestedChange('homeTeam', 'teamCountryCode')} placeholder="AUS, GER, ESP"  />
               </div>
             </div>
           </section>
@@ -208,12 +208,12 @@ const AddEvent = () => {
             <h3>Away Team</h3>
             <div className="form-row">
               <div className="form-group">
-                <label>Official Name</label>
-                <input type="text" className="input" value={form.awayTeam.officialName} onChange={onNestedChange('awayTeam', 'officialName')} />
+                <label htmlFor="awayOfficialName">Official Name</label>
+                <input id="awayOfficialName" type="text" className="input" value={form.awayTeam.officialName} onChange={onNestedChange('awayTeam', 'officialName')} />
               </div>
               <div className="form-group">
-                <label>Country Code</label>
-                <input type="text" className="input" value={form.awayTeam.teamCountryCode} onChange={onNestedChange('awayTeam', 'teamCountryCode')} placeholder="AUS, GER, ESP" />
+                <label htmlFor="awayCountryCode">Country Code</label>
+                <input id="awayCountryCode" type="text" className="input" value={form.awayTeam.teamCountryCode} onChange={onNestedChange('awayTeam', 'teamCountryCode')} placeholder="AUS, GER, ESP" />
               </div>
             </div>
           </section>
@@ -226,16 +226,16 @@ const AddEvent = () => {
               <h3>Result</h3>
               <div className="form-row" >
                 <div className="form-group">
-                  <label>Home Goals</label>
-                  <input type="number" className="input" value={form.result.homeGoals} onChange={onNestedChange('result', 'homeGoals')} />
+                  <label htmlFor="homeGoals">Home Goals</label>
+                  <input id="homeGoals" type="number" className="input" value={form.result.homeGoals} onChange={onNestedChange('result', 'homeGoals')} />
                 </div>
                 <div className="form-group">
-                  <label>Away Goals</label>
-                  <input type="number" className="input" value={form.result.awayGoals} onChange={onNestedChange('result', 'awayGoals')} />
+                  <label htmlFor="awayGoals">Away Goals</label>
+                  <input id="awayGoals" type="number" className="input" value={form.result.awayGoals} onChange={onNestedChange('result', 'awayGoals')} />
                 </div>
                 <div className="form-group">
-                  <label>Message</label>
-                  <input type="text" className="input" value={form.result.message} onChange={onNestedChange('result', 'message')} />
+                  <label htmlFor="resultMessage">Message</label>
+                  <input id="resultMessage" type="text" className="input" value={form.result.message} onChange={onNestedChange('result', 'message')} />
                 </div>
               </div>
             </section>
@@ -248,12 +248,12 @@ const AddEvent = () => {
             <div className="form-row">
               
               <div className="form-group">
-                <label>Stage Name</label>
-                <input type="text" className="input" value={form.stage.name} onChange={onNestedChange('stage', 'name')} placeholder='Final' />
+                <label htmlFor="stageName">Stage Name</label>
+                <input id="stageName" type="text" className="input" value={form.stage.name} onChange={onNestedChange('stage', 'name')} placeholder='Final' />
               </div>
               <div className="form-group">
-                <label>Ordering</label>
-                <input type="number" className="input" value={form.stage.ordering} onChange={onNestedChange('stage', 'ordering')} />
+                <label htmlFor="stageOrdering">Ordering</label>
+                <input id="stageOrdering" type="number" className="input" value={form.stage.ordering} onChange={onNestedChange('stage', 'ordering')} />
               </div>
             </div>
           </section>
@@ -265,12 +265,12 @@ const AddEvent = () => {
             <div className="form-row">
 
               <div className="form-group">
-                <label>Competition Name</label>
-                <input type="text" className="input" value={form.originCompetitionName} onChange={onChange('originCompetitionName')} />
+                <label htmlFor="competitionName">Competition Name</label>
+                <input id="competitionName" type="text" className="input" value={form.originCompetitionName} onChange={onChange('originCompetitionName')} />
               </div>
               <div className="form-group">
-                <label>Group</label>
-                <input type="text" className="input" value={form.group} onChange={onChange('group')} />
+                <label htmlFor="group">Group</label>
+                <input id="group" type="text" className="input" value={form.group} onChange={onChange('group')} />
               </div>
             </div>
           </section>
