@@ -86,6 +86,8 @@ const AddEvent = () => {
   }, [form.dateVenue, form.timeVenueUTC]);
 
   const canEnterResult = !!eventDateTimeUtc && eventDateTimeUtc.getTime() <= Date.now();
+  
+  // Only show result fields if status is 'played' and date+time is in the past
   const canShowResult = canEnterResult && form.status === 'played';
 
   const handleSubmit = (e) => {
@@ -142,7 +144,7 @@ const AddEvent = () => {
     <div className="container">
       <h1 style={{ color: 'var(--texttitle)' }}>Add New Sport Event</h1>
       <form onSubmit={handleSubmit}>
-        <div className="card" style={{ padding: '1rem', background: 'var(--bg)' }}>
+        <div className="card" >
           <section className="form-section">
             <h3>Basics</h3>
 

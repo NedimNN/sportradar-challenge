@@ -21,7 +21,7 @@ const EventDetails = () => {
     return (
       <div className="container">
         <h1>Event Details</h1>
-        <div className="card" style={{ padding: '1rem' }}>
+        <div className="card" >
           <p>Event not found.</p>
           <button className="btn" onClick={() => navigate(-1)}>Back</button>
         </div>
@@ -32,7 +32,7 @@ const EventDetails = () => {
   return (
     <div className="container">
       <h1 style={{color: 'var(--texttitle)'}}>Event Details</h1>
-      <div className="card" style={{ padding: '1rem', background: 'var(--bg)' }}>
+      <div className="card" >
         <Row label="Date">{event.dateVenue || 'N/A'}</Row>
         <Row label="Time (UTC)">{event.timeVenueUTC || 'TBD'}</Row>
         <Row label="Status">{event.status || 'N/A'}</Row>
